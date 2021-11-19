@@ -1,4 +1,3 @@
-
 CREATE TABLE genres
 (
 	id INT IDENTITY PRIMARY KEY,
@@ -82,5 +81,16 @@ INSERT INTO actormovies VALUES(3,1);
 
 SELECT * FROM actormovies;
 
+SELECT *, (SELECT COUNT(id) FROM movies WHERE genresID = genres.id) AS 'Movie Count' FROM genres
+
 
 SELECT * FROM actors WHERE(actors.age>(actors.age/(LEN(actors.age))));
+
+SELECT ACTOR.Name, ACTOR.SurName, ACTOR.Age, MOVIES.Name FROM actormovies AS AM
+JOIN actors AS ACTOR ON ACTOR.id = AM.ActorId
+JOIN movies AS MOVIES ON MOVIES.id = AM.MovieId
+ORDER BY AM.ActorId
+
+
+SELECT * FROM actors AS Actor
+WHERE EXISTS (SELECT * FROM actormovies AS AM WHERE AM.ActorId = Actor.id)
